@@ -1,24 +1,19 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import withContext from './Context';
+// import withContext from './Context';
+import Courses from "./components/Courses";
 
 function App() {
-
-  // fetch('http://localhost:5000/api/courses')
-  // .then(res => res.json())
-  // .then(data => display(data));
-
-  // const display = (data) => {
-  //   console.log(data);
-  //   componentDidMount() {
-  //     this.display()
-      
-  //   }
     
   return (
     
     <div className="App">
-        
+        <Router>
+          <Routes>
+            <Route path='courses' component={Courses}/>
+          </Routes>
+        </Router>
     </div>
   );
 }
