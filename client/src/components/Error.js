@@ -3,7 +3,7 @@ import React from "react";
 const Error = () => {
     return(
         <main>
-            <div class="wrap">
+            <div className="wrap">
                 <h2>Error</h2>
                 <p>Sorry! We just encountered an unexpected error.</p>
             </div>

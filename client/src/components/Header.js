@@ -1,14 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return(
         <header>
-            <div class="wrap header--flex">
-                <h1 class="header--logo"><a href="index.html">Courses</a></h1>
+            <div className="wrap header--flex">
+                <h1 className="header--logo"><a href="/">Courses</a></h1>
                 <nav>
                     <ul class="header--signedout">
-                        <li><a href="sign-up.html">Sign Up</a></li>
-                        <li><a href="sign-in.html">Sign In</a></li>
+                        <li><Link to="/signup">Sign Up</Link></li>
+                        <li><Link to="/signin">Sign In</Link></li>
+                        {/* <li><Link to="/signout">Sign Out</Link></li> */}
                     </ul>
                 </nav>
             </div>

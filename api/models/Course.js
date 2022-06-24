@@ -34,6 +34,9 @@ module.exports = (sequelize) => {
           materialsNeeded: {
             type: DataTypes.STRING,  
           },
+          ID: {
+            type: DataTypes.INTEGER,
+          }
     } , { sequelize });
 
     Course.associate = (models) => {
