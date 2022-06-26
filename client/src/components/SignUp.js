@@ -1,27 +1,71 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import Context from '../Context';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
-    return(
+
+    const context = useContext(Context);
+    const history = useNavigate();
+
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [emailAddress, setEmailAddress] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors] = useState( [] );
+
+   
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        context.actions.createUser({firstName, lastName, emailAddress, password})
+        .then( errors => {
+            if (errors.length) {
+            this.setState({ errors });
+            } else {
+            context.actions.signIn(emailAddress, password)
+                .then(() => {
+                    history('/');    
+                });
+            }
+      })
+      .catch((err) => {
+        console.log(err);
+        this.props.history.push('/error');
+      });
+  }
+
+  const errorHandler = errors.length 
+        ?  
+        (<div className="validation--errors">
+            <h3>Validation Errors</h3>
+                <ul>{errors.map((error, i) => {return (<li key={i}>{error}</li>)})}</ul>
+        </div>) 
+        : 
+        null
+
+
+return(
         <main>
             <div className="form--centered">
                 <h2>Sign Up</h2>
-                <form>
-                    <label for="firstName">First Name</label>
-                    <input id="firstName" name="firstName" type="text"  /> 
-                    {/* only works if you delete the value?? */}
-                    <label for="lastName">Last Name</label>
-                    <input id="lastName" name="lastName" type="text" value="" />
-                    <label for="emailAddress">Email Address</label>
-                    <input id="emailAddress" name="emailAddress" type="email" value="" />
-                    <label for="password">Password</label>
-                    <input id="password" name="password" type="password" value="" />
-                    <button className="button" type="submit">Sign Up</button><button className="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
+                { errorHandler }
+                <form onSubmit= {handleSubmit}>
+                    <label htmlFor="firstName">First Name</label>
+                    <input onChange= {(e) => setFirstName(e.target.value)} id="firstName" name="firstName" type="text" value={firstName} /> 
+                    <label htmlFor="lastName">Last Name</label>
+                    <input onChange={(e) => setLastName(e.target.value)} id="lastName" name="lastName" type="text" value={lastName} />
+                    <label htmlFor="emailAddress">Email Address</label>
+                    <input onChange={(e) => setEmailAddress(e.target.value)} id="emailAddress" name="emailAddress" type="email" value={emailAddress} />
+                    <label htmlFor="password">Password</label>
+                    <input onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" value={password} />
+                
+                    <button className= "button" type="submit" onClick={handleSubmit}> Sign Up</button>
+                    <Link className='button button-secondary' to="/">Cancel</Link>
                 </form>
                 <p>Already have a user account? Click here to <Link to="/signin">sign in</Link>!</p>
             </div>
         </main>
     )
 }
+
 
 export default SignUp;
