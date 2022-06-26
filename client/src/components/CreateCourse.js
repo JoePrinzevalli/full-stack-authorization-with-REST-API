@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../Context';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const CreateCourse = () => {
 
@@ -19,7 +20,7 @@ const CreateCourse = () => {
         setErrors( [] );
         
         const auth = btoa( `${Context.authenticatedUser.emailAddress}:${Context.authenticatedPassword}`);
-        const res = await fetch('http://localhost:5000/api/courses', {
+        const res = await axios.get('http://localhost:5000/api/courses', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
