@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import Context from '../Context';
+import { Context } from '../Context';
 import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
@@ -11,7 +11,7 @@ const SignUp = () => {
     const [lastName, setLastName] = useState('');
     const [emailAddress, setEmailAddress] = useState('');
     const [password, setPassword] = useState('');
-    const [errors] = useState( [] );
+    const [errors, setErrors] = useState( [] );
 
    
     const handleSubmit = (e) => {
@@ -19,7 +19,7 @@ const SignUp = () => {
         context.actions.createUser({firstName, lastName, emailAddress, password})
         .then( errors => {
             if (errors.length) {
-            this.setState({ errors });
+                setErrors(errors);
             } else {
             context.actions.signIn(emailAddress, password)
                 .then(() => {
@@ -29,11 +29,12 @@ const SignUp = () => {
       })
       .catch((err) => {
         console.log(err);
-        this.props.history.push('/error');
+        history('/error');
       });
   }
 
-  const errorHandler = errors.length 
+  const errorHandler = 
+    errors.length 
         ?  
         (<div className="validation--errors">
             <h3>Validation Errors</h3>

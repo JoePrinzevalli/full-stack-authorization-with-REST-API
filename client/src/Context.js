@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import Data from './Data';
 
-const Context = React.createContext(); 
+export const Context = React.createContext(); 
 
 const api = (path, method, body = null, requireAuth = false, credentials = null) => {
   const url = 'http://localhost:5000/api' + path;
@@ -50,16 +50,16 @@ export function Provider(props) {
     </Context.Provider>  
   )
     
-  async function signIn (emailAddress, password) {
-    const user = await getUser(emailAddress, password);
+  // 4 fucntions: signOut, signIN, getUser and createUser
+  async function signIn (emailAddress, password, errors) {
+    const user = await getUser(emailAddress, password, errors);
     if(user !== null) {
         setAuthenticatedEmail(user);
         setAuthenticatedPassword(password);
-    };
+    }
     return user;
 };
 
-// 4 fucntions: signOut, signIN, getUser and createUser
   async function signOut() {
     setAuthenticatedEmail(null);
     setAuthenticatedPassword(null);

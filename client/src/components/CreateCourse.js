@@ -15,11 +15,11 @@ const CreateCourse = () => {
 
 
 
-    const handleSubmit = async(e) =>{
+    const handleSubmit = async(e) => {
         e.preventDefault();
         setErrors( [] );
         
-        const auth = btoa( `${Context.authenticatedUser.emailAddress}:${Context.authenticatedPassword}`);
+        const auth = btoa( `${context.authenticated.emailAddress}:${context.authenticatedPassword}`);
         const res = await axios.get('http://localhost:5000/api/courses', {
             method: 'POST',
             headers: {
@@ -32,7 +32,7 @@ const CreateCourse = () => {
                 description: description, 
                 estimatedTime: estimatedTime, 
                 materialsNeeded: materialsNeeded, 
-                userId: Context.authenticatedUser.id}),
+                userId: context.authenticatedUser.id}),
         })
 
         if (res.status === 201) {
@@ -47,7 +47,7 @@ const CreateCourse = () => {
           } else {
             Error();
           }
-        }
+        };
 
         const handleCancel = (e) => {
             e.preventDefault();
@@ -73,8 +73,8 @@ const CreateCourse = () => {
                 {/* <div className="validation--errors">
                     <h3>Validation Errors</h3>
                     <ul>
-                        <li>Please provide a value for "Title"</li>
-                        <li>Please provide a value for "Description"</li>
+                        <li>Please provide a value htmlFor"Title"</li>
+                        <li>Please provide a value htmlFor"Description"</li>
                     </ul>
                 </div> */}
                 <form onSubmit={ handleSubmit }>
@@ -89,7 +89,7 @@ const CreateCourse = () => {
                             : 
                             ''}</p>
 
-                            <label for="courseDescription">Course Description</label>
+                            <label htmlFor="courseDescription">Course Description</label>
                             <textarea id="courseDescription" name="courseDescription" value={description} onChange={ (e) => setDescription(e.target.value) }></textarea>
                         </div>
                         <div>
