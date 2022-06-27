@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
+import { Context } from '../Context';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 
 const CourseDetail = () => {
 
@@ -45,7 +47,7 @@ const CourseDetail = () => {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <li>{courses.materialsNeeded}</li>
+                                <ReactMarkdown>{courses.materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>
                     </div>

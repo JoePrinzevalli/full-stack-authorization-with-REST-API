@@ -93,10 +93,10 @@ const CreateCourse = () => {
                             <textarea id="courseDescription" name="courseDescription" value={description} onChange={ (e) => setDescription(e.target.value) }></textarea>
                         </div>
                         <div>
-                            <label for="estimatedTime">Estimated Time</label>
+                            <label htmlFor="estimatedTime">Estimated Time</label>
                             <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={ (e) => setEstimatedTime(e.target.value) } />
 
-                            <label for="materialsNeeded">Materials Needed</label>
+                            <label htmlFor="materialsNeeded">Materials Needed</label>
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={ (e) => setMaterialsNeeded(e.target.value) }></textarea>
                         </div>
                     </div>
