@@ -16,11 +16,11 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
     // const [errors, setErrors] = useState( [] );
 
-    const handleSubmit = (e) => {
+    const handleSubmit = e => {
         e.preventDefault();
-        context.actions.signIn({emailAddress, password})
+        context.actions.signIn(emailAddress, password)
         .then( user => {
-            if ((user) === null) {
+            if (user === null) {
                 return { errors: ['Your login was unsuccessful. Please try again.'] };
             } else {
                 history('/');
@@ -38,14 +38,14 @@ const SignIn = () => {
             <div className="form--centered">
                 <h2>Sign In</h2>
                 {/* { errors } */}
-                <React.Fragment>
+                <form onSubmit={handleSubmit}>
                     <label htmlFor="emailAddress">Email Address</label>
                     <input 
                     id="emailAddress" 
                     name="emailAddress" 
                     type="email"
                     onChange={(e) => setEmailAddress(e.target.value)}
-                    value={emailAddress}
+                    value={ emailAddress }
                     />
                     <label htmlFor="password">Password</label>
                     <input 
@@ -53,11 +53,11 @@ const SignIn = () => {
                     name="password" 
                     type="password"
                     onChange={(e) => setPassword(e.target.value)}
-                    value={password}   
+                    value={ password }    
                     />
                     <button className="button" type="submit" onClick={handleSubmit}>Sign In</button>
                     <button className='button button-secondary' onClick={handleCancel}>Cancel</button>
-                </React.Fragment>
+                </form>
                 <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link>!</p>
             </div>
         </main>

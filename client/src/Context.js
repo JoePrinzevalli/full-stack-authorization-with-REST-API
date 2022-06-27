@@ -51,8 +51,8 @@ export function Provider(props) {
   )
     
   // 4 fucntions: signOut, signIN, getUser and createUser
-  async function signIn (emailAddress, password, errors) {
-    const user = await getUser(emailAddress, password, errors);
+  async function signIn (emailAddress, password) {
+    const user = await getUser(emailAddress, password);
     if(user !== null) {
         setAuthenticatedEmail(user);
         setAuthenticatedPassword(password);

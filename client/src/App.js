@@ -15,6 +15,7 @@ import NotFound from './components/NotFound';
 
 const SignInWithContext = withContext(SignIn);
 const CreateCourseWithContext = withContext(CreateCourse);
+const SignUpWithContext = withContext(SignUp);
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
             <Route path='/' element={<Courses /> }/>
             <Route path='/courses/:id' element={<CourseDetail /> }/>
             <Route path='/signin' element={<SignInWithContext />} />
-            <Route path='/signup' element={<SignUp />} />
+            <Route path='/signup' element={<SignUpWithContext />} />
             <Route path='/courses/create' element={<CreateCourseWithContext />} />
             <Route path='/courses/:id/update' element={<UpdateCourse />} />
             {/* <Route path='/signout' element={<SignOut />} /> */}
