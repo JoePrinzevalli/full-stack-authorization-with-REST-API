@@ -12,11 +12,15 @@ import CourseDetail from './components/CourseDeatil';
 import SignOut from './components/SignOut';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
+import PrivateRoute from './components/PrivateRoute';
 
 const SignInWithContext = withContext(SignIn);
 const CreateCourseWithContext = withContext(CreateCourse);
 const SignUpWithContext = withContext(SignUp);
 const CoursesWithContext = withContext(Courses)
+const CourseDeatilWithContext = withContext(CourseDetail);
+const UpdateCourseWithContext = withContext(UpdateCourse)
+const SignOutWithContext = withContext(SignOut)
 
 function App() {
   return (
@@ -26,12 +30,12 @@ function App() {
         <Header />
           <Routes>
             <Route path='/' element={<CoursesWithContext /> }/>
-            <Route path='/courses/:id' element={<CourseDetail /> }/>
+            <Route path='/courses/:id' element={<CourseDeatilWithContext /> }/>
             <Route path='/signin' element={<SignInWithContext />} />
             <Route path='/signup' element={<SignUpWithContext />} />
-            <Route path='/courses/create' element={<CreateCourseWithContext />} />
-            <Route path='/courses/:id/update' element={<UpdateCourse />} />
-            {/* <Route path='/signout' element={<SignOut />} /> */}
+            <Route path = '/courses/create' element={<PrivateRoute />}><Route path='' element={< CreateCourseWithContext />} /> </Route>
+            <Route path = '/courses/:id/update' element={<PrivateRoute />}><Route path='' element={< UpdateCourseWithContext />} /> </Route>
+            <Route path='/signout' element={<SignOutWithContext />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
     </div>
