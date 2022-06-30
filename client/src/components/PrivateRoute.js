@@ -6,7 +6,7 @@ import { Context } from '../Context';
 
 const PrivateRoute = () => {
 
-    var { authenticatedUser } = useContext(Context);
+    let { authenticatedUser } = useContext(Context);
 
     return authenticatedUser 
     ? 
