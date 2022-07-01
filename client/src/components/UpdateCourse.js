@@ -6,13 +6,15 @@ import axios from 'axios';
 const UpdateCourse = () => {
 
     const navigate = useNavigate();
-    const {id} = useParams()
+    var {id} = useParams()
     const [title, setTitle] = useState ('');
     const [description, setDescription] = useState ('');
     const [estimatedTime, setEstimatedTime] = useState ('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     // const [user, setUser] = useState('');
     const [errors, setErrors] = useState( [] );
+
+    
 
     const courseUpdate = async e => {
         e.preventDefault();
@@ -29,7 +31,7 @@ const UpdateCourse = () => {
                 description,
                 estimatedTime,
                 materialsNeeded}),
-        });
+        })
         if (res.status === 204) {
             navigate('/');
           } else if (res.status === 403) {
@@ -46,19 +48,19 @@ const UpdateCourse = () => {
     };
 
     useEffect( () => {
-        axios.get(`http://localhost:5000/api/courses/${id}`)             
+        fetch(`http://localhost:5000/api/courses/${id}`)             
          .then(res => {
              setTitle(res.data.title);
              setDescription(res.data.description);
              setEstimatedTime(res.data.estimatedTime);
              setMaterialsNeeded(res.data.materialsNeeded);
-             })
-         .catch(err => {console.log('Oh No! Something went wrong fetching the data', err);})
-         }, [id]);
+             }) 
+         .catch(err => {console.log('Oh No! Something went wrong fetching the data-->', err);})
+         }, [id],);
                 
      const cancelButton = e => {
          e.preventDefault();
-         navigate(`/courses/${id}`);
+         navigate(`/`);
      }
 
      const errorHandler = errors.length 
@@ -84,18 +86,18 @@ const UpdateCourse = () => {
                             id="courseTitle" 
                             name="courseTitle" 
                             type="text"
-                            onChange={(e) => setTitle(e.target.value)} 
-                            value={title}/>
+                            onChange={ e => setTitle(e.target.value)} 
+                            value={title}
+                            />
 
-                            <p>By {Context.authenticatedUser  `${Context.authenticatedUser.firstName} ${Context.authenticatedUser.lastName}` }</p>
+                            <p>By {Context?.authenticatedUser ? `${Context.authenticatedUser.firstName} ${Context.authenticatedUser.lastName}` : ''}</p>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea 
                             id="courseDescription" 
                             name="courseDescription"
-                            onChange={(e) => setDescription(e.target.value)}
+                            onChange={ e => setDescription(e.target.value)}
                             value={description}>
-                            {description}
                             </textarea>
                         </div>
                         <div>
@@ -104,7 +106,7 @@ const UpdateCourse = () => {
                             id="estimatedTime" 
                             name="estimatedTime" 
                             type="text" 
-                            onChange={(e) => setEstimatedTime(e.target.value)}
+                            onChange={ e => setEstimatedTime(e.target.value)}
                             value={estimatedTime}
                             />
 
@@ -112,13 +114,13 @@ const UpdateCourse = () => {
                             <textarea 
                             id="materialsNeeded" 
                             name="materialsNeeded"
-                            onChange={(e) => setMaterialsNeeded(e.target.value)}>
-                            {materialsNeeded}
+                            onChange={ e => setMaterialsNeeded(e.target.value)}
+                            value={materialsNeeded}>
                             </textarea>
                         </div>
                     </div>
                     <button className="button" type="submit" onClick={courseUpdate}>Update Course</button>
-                    <button className="button button-secondary" onclick={cancelButton}>Cancel</button>
+                    <button className="button button-secondary" onClick={cancelButton}>Cancel</button>
                 </form>
             </div>
         </main>

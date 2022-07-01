@@ -8,7 +8,7 @@ import Header from "./components/Header";
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import CreateCourse from './components/CreateCourse';
-import CourseDetail from './components/CourseDeatil';
+import CourseDetail from './components/CourseDetail';
 import SignOut from './components/SignOut';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
@@ -18,7 +18,7 @@ const SignInWithContext = withContext(SignIn);
 const CreateCourseWithContext = withContext(CreateCourse);
 const SignUpWithContext = withContext(SignUp);
 const CoursesWithContext = withContext(Courses)
-const CourseDeatilWithContext = withContext(CourseDetail);
+const CourseDetailWithContext = withContext(CourseDetail);
 const UpdateCourseWithContext = withContext(UpdateCourse)
 const SignOutWithContext = withContext(SignOut)
 const PrivateRouteWithContext = withContext(PrivateRoute)
@@ -31,11 +31,11 @@ function App() {
         <Header />
           <Routes>
             <Route path='/' element={<CoursesWithContext /> }/>
-            <Route path='/courses/:id' element={<CourseDeatilWithContext /> }/>
+            <Route path='/courses/:id' element={<CourseDetailWithContext /> }/>
             <Route path='/signin' element={<SignInWithContext />} />
             <Route path='/signup' element={<SignUpWithContext />} />
-            <Route path = '/courses/create' element={<PrivateRouteWithContext />}><Route path='' element={< CreateCourseWithContext />} /> </Route>
-            <Route path = '/courses/:id/update' element={<PrivateRouteWithContext />}><Route path='' element={< UpdateCourseWithContext />} /> </Route>
+            <Route path = '/courses/create' element={<PrivateRouteWithContext />}><Route path='' element={<CreateCourseWithContext />} /> </Route>
+            <Route path = '/courses/:id/update' element={<PrivateRouteWithContext />}><Route path='' element={<UpdateCourseWithContext />} /> </Route>
             <Route path='/signout' element={<SignOutWithContext />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

@@ -5,6 +5,7 @@ import axios from 'axios';
 
 const CreateCourse = () => {
 
+    const history = useNavigate();
     const context = useContext(Context);
     const navigate = useNavigate();
     const [errors, setErrors] = useState( [] );
@@ -15,42 +16,52 @@ const CreateCourse = () => {
 
 
 
-    const handleSubmit = async(e) => {
+    // const handleSubmit = async e => {
+    //     e.preventDefault();
+    //     setErrors( [] );
+    //     // try context here
+    //     const auth = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`);
+    //     const res = await axios.get('http://localhost:5000/api/courses', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json; charset=utf-8',
+    //             'Authorization': `Basic ${auth}`, 
+    //             'Accept': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             title: title,
+    //             description: description, 
+    //             estimatedTime: estimatedTime, 
+    //             materialsNeeded: materialsNeeded, 
+    //             userId: context.authenticatedUser.id}),
+    //     })
+
+    //     if (res.status === 201) {
+    //         navigate('/');
+    //       } else if (res.status === 401) {
+    //         navigate('/forbidden')
+    //       } else if (res.status === 400) {
+    //         res.json()
+    //           .then(data => {
+    //             setErrors(data.errors)
+    //           });
+    //       } else {
+    //         Error();
+    //       }
+    //     };
+
+    const handleSubmit = async e => {
         e.preventDefault();
-        setErrors( [] );
-        
-        // const auth = btoa(`${context.authenticated.emailAddress}:${context.authenticatedPassword}`);
-        // eslint-disable-next-line no-undef
-        const auth = buf.toString('base64')
-        //which one to use
-        const res = await axios.get('http://localhost:5000/api/courses', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-                'Authorization': `Basic ${auth}`, 
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                title: title,
-                description: description, 
-                estimatedTime: estimatedTime, 
-                materialsNeeded: materialsNeeded, 
-                userId: context.authenticatedUser.id}),
+        context.actions.createCourse({title, description, estimatedTime, materialsNeeded})
+        .then( errors => {
+            if (errors.length) {
+                setErrors(errors);
+            } else {
+                navigate('/')
+            }
         })
 
-        if (res.status === 201) {
-            navigate('/');
-          } else if (res.status === 401) {
-            navigate('/forbidden')
-          } else if (res.status === 400) {
-            res.json()
-              .then(data => {
-                setErrors(data.errors)
-              });
-          } else {
-            Error();
-          }
-        };
+    }
 
         const handleCancel = (e) => {
             e.preventDefault();
@@ -65,8 +76,6 @@ const CreateCourse = () => {
     </div>) 
     : 
     null
-
-
 
     return(
         <main>
@@ -103,7 +112,8 @@ const CreateCourse = () => {
                             <textarea id="materialsNeeded" name="materialsNeeded" value={materialsNeeded} onChange={ (e) => setMaterialsNeeded(e.target.value) }></textarea>
                         </div>
                     </div>
-                    <button className="button" onClick={ handleSubmit }>Create Course</button><button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
+                    <button className="button" onClick={ handleSubmit }>Create Course</button>
+                    <button className="button button-secondary" onClick={ handleCancel }>Cancel</button>
                 </form>
             </div>
         </main>

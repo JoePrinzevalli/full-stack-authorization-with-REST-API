@@ -40,6 +40,7 @@ export function Provider(props) {
           createUser: createUser,
           signIn: signIn,
           signOut: signOut,
+          createCourse: createCourse,
   
       },
   }
@@ -94,6 +95,23 @@ export function Provider(props) {
         throw new Error();
     }
 }
+
+async function createCourse(title, description, estimatedTime, materialsNeeded, userId) {
+  const res = await api('/courses/create', 'POST', {title, description, estimatedTime, materialsNeeded, userId});
+  if (res.status === 201) {
+      return [];
+  }
+  else if (res.status === 400) {
+      return res.json()
+          .then(data => {
+               return data.errors;
+          });
+  }
+  else {
+      throw new Error();
+  }
+}
+
 }
 
 export const Consumer = Context.Consumer;
