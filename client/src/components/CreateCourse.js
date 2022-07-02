@@ -52,12 +52,13 @@ const CreateCourse = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        context.actions.createCourse({title, description, estimatedTime, materialsNeeded})
+        context.actions.createCourse( {title, description, estimatedTime, materialsNeeded} )
         .then( errors => {
             if (errors.length) {
                 setErrors(errors);
             } else {
                 navigate('/')
+                //else put neew course in home page
             }
         })
 
