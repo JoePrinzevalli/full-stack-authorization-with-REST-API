@@ -66,8 +66,8 @@ export function Provider(props) {
     setAuthenticatedPassword(null);
   };
 
-  async function getUser(emailAddress, password) {
-    const res = await api(`/users`, 'GET', null, true, {emailAddress, password});
+  async function getUser(emailAddress, password, id) {
+    const res = await api(`/users`, 'GET', null, true, {emailAddress, password, id});
     if (res.status === 200) {
         return res.json()
             .then(data => data);
@@ -97,7 +97,8 @@ export function Provider(props) {
 }
 
 async function createCourse(title, description, estimatedTime, materialsNeeded, userId) {
-  const res = await api('/courses/create', 'POST', {title, description, estimatedTime, materialsNeeded, userId});
+  const res = await api('/courses/create', 'POST', null, true, {title, description, estimatedTime, materialsNeeded, userId});
+  console.log(res);
   if (res.status === 201) {
       return [];
   }

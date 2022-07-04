@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../Context';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 const CreateCourse = () => {
 
@@ -13,6 +13,7 @@ const CreateCourse = () => {
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
+    const [userId, setUserId] = useState('');
 
 
 
@@ -52,7 +53,7 @@ const CreateCourse = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        context.actions.createCourse( {title, description, estimatedTime, materialsNeeded} )
+        context.actions.createCourse( {title, description, estimatedTime, materialsNeeded, userId} )
         .then( errors => {
             if (errors.length) {
                 setErrors(errors);
