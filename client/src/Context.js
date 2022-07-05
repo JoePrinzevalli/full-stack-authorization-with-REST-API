@@ -95,10 +95,11 @@ export function Provider(props) {
         throw new Error();
     }
 }
-
-async function createCourse(title, description, estimatedTime, materialsNeeded, userId) {
-  const res = await api('/courses/create', 'POST', null, true, {title, description, estimatedTime, materialsNeeded, userId});
-  console.log(res);
+// const api = (path, method, body = null, requireAuth = false, credentials = null) 
+async function createCourse(title, description, estimatedTime, materialsNeeded, userId, emailAddress, password) {
+  // const auth = btoa(`${authenticatedUser}:${authenticatedPassword}`);
+  const res = await api('/courses/create', 'POST', {title, description, estimatedTime, materialsNeeded, userId}, true, {emailAddress, password} );
+  console.log(title);
   if (res.status === 201) {
       return [];
   }

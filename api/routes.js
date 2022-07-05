@@ -65,7 +65,7 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 );
 
 // route that will create a new course, set the Location header to the URI for the newly created course, and return a 201 HTTP status code and no content.
-router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
+router.post('/courses/create', authenticateUser, asyncHandler(async (req, res) => {
     try {
       await Course.create(req.body);
       res.status(201).location(`/courses/${Course.id}`).end();
