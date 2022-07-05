@@ -1,11 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../Context';
 import { useNavigate } from 'react-router-dom';
-// import axios from 'axios';
 
 const CreateCourse = () => {
 
-    const history = useNavigate();
+    // const history = useNavigate();
     const context = useContext(Context);
     const navigate = useNavigate();
     const [errors, setErrors] = useState( [] );
@@ -13,57 +12,22 @@ const CreateCourse = () => {
     const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
-    const [userId, setUserId] = useState('');
-
-
-
-    // const handleSubmit = async e => {
-    //     e.preventDefault();
-    //     setErrors( [] );
-    //     // try context here
-    //     const auth = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`);
-    //     const res = await axios.get('http://localhost:5000/api/courses', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json; charset=utf-8',
-    //             'Authorization': `Basic ${auth}`, 
-    //             'Accept': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             title: title,
-    //             description: description, 
-    //             estimatedTime: estimatedTime, 
-    //             materialsNeeded: materialsNeeded, 
-    //             userId: context.authenticatedUser.id}),
-    //     })
-
-    //     if (res.status === 201) {
-    //         navigate('/');
-    //       } else if (res.status === 401) {
-    //         navigate('/forbidden')
-    //       } else if (res.status === 400) {
-    //         res.json()
-    //           .then(data => {
-    //             setErrors(data.errors)
-    //           });
-    //       } else {
-    //         Error();
-    //       }
-    //     };
+    const [userId, setUserId] = useState(context.authenticatedUser.id);
 
     const handleSubmit = async e => {
         e.preventDefault();
-        context.actions.createCourse( {title, description, estimatedTime, materialsNeeded, userId} )
+        context.actions.createCourse( title, description, estimatedTime, materialsNeeded, userId, context.authenticatedUser.emailAddress, context.authenticatedPassword )
         .then( errors => {
-            if (errors.length) {
+            if (errors) {
                 setErrors(errors);
             } else {
                 navigate('/')
-                //else put neew course in home page
+                console.log(context.actions.createCourse);
+                //else put new course in home page
             }
         })
-
     }
+    
 
         const handleCancel = (e) => {
             e.preventDefault();

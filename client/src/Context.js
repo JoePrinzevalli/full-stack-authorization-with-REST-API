@@ -31,6 +31,7 @@ export function Provider(props) {
 
     const [authenticatedUser, setAuthenticatedEmail] = useState();
     const [authenticatedPassword, setAuthenticatedPassword] = useState();
+    // const [authenticatedId, setAuthenticatedId] = useState();
 
     const value = {
       authenticatedUser,
@@ -41,6 +42,7 @@ export function Provider(props) {
           signIn: signIn,
           signOut: signOut,
           createCourse: createCourse,
+          deleteCourse: deleteCourse
   
       },
   }
@@ -52,11 +54,12 @@ export function Provider(props) {
   )
     
   // 4 fucntions: signOut, signIN, getUser and createUser
-  async function signIn (emailAddress, password) {
-    const user = await getUser(emailAddress, password);
+  async function signIn (emailAddress, password, ) {
+    const user = await getUser(emailAddress, password, );
     if(user !== null) {
         setAuthenticatedEmail(user);
         setAuthenticatedPassword(password);
+        // setAuthenticatedId(id)
     }
     return user;
 };
@@ -64,6 +67,7 @@ export function Provider(props) {
   async function signOut() {
     setAuthenticatedEmail(null);
     setAuthenticatedPassword(null);
+    // setAuthenticatedId(null)
   };
 
   async function getUser(emailAddress, password, id) {
@@ -96,10 +100,25 @@ export function Provider(props) {
     }
 }
 // const api = (path, method, body = null, requireAuth = false, credentials = null) 
-async function createCourse(title, description, estimatedTime, materialsNeeded, userId, emailAddress, password) {
-  // const auth = btoa(`${authenticatedUser}:${authenticatedPassword}`);
-  const res = await api('/courses/create', 'POST', {title, description, estimatedTime, materialsNeeded, userId}, true, {emailAddress, password} );
-  console.log(title);
+async function createCourse(title, description, estimatedTime, materialsNeeded, emailAddress, password) {
+  const res = await api('/courses/create', 'POST', title, description, estimatedTime, materialsNeeded, authenticatedUser.id, authenticatedUser.emailAddress, authenticatedPassword, true, {emailAddress, password} );
+  console.log(authenticatedUser.id);
+  if (res.status === 201) {
+      return [];
+  }
+  else if (res.status === 400) {
+      return res.json()
+          .then(data => {
+               return data.errors;
+          });
+  }
+  else {
+      throw new Error();
+  }
+}
+
+async function deleteCourse() {
+  const res = await api('/courses/:id', 'DELETE');
   if (res.status === 201) {
       return [];
   }

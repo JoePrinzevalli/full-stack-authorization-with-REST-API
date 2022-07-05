@@ -41,13 +41,24 @@ const CourseDetail = () => {
             navigate('/error');
         });
     };
-
+    
+// console.log(context.authenticatedUser && context.authenticatedUser.id === courses.userId );
+// comes up as true then returns to false
     return(
+        
         <main>
             <div className="actions--bar">
                 <div className="wrap">
-                    <Link className="button" to="/courses/:id/update">Update Course</Link>
-                    <Link className="button" to="/" onClick={ deleteCourse }>Delete Course</Link>
+                { context.authenticatedUser && context.authenticatedUser.id === courses.userId 
+                ? (
+                        <div>
+                            <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
+                            <Link className="button" to="/" onClick={deleteCourse} >Delete Course</Link>
+                        </div>
+                    ) 
+                    : 
+                    (null)
+                    }
                     <Link className="button button-secondary" to="/">Return to List</Link>
                 </div>
             </div>
