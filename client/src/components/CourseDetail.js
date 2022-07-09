@@ -2,6 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Context } from '../Context';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from "rehype-raw";
 
@@ -15,7 +16,8 @@ const CourseDetail = () => {
     const [errors, setErrors] = useState( [] );
     const [firstName, setFirst] = useState('');
     const [lastName, setLast] = useState('');
-    const markdown = `${courses.materialsNeeded}`
+    // const markdown = `${courses.materialsNeeded}`
+    const markdown = courses.materialsNeeded
  
 
     useEffect(() => {
@@ -91,9 +93,7 @@ const CourseDetail = () => {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <li>
-                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={markdown} />
-                                </li>
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={markdown} /> 
                             </ul>
                         </div>
                     </div>
