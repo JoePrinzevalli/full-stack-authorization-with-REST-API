@@ -3,6 +3,7 @@ import { Context } from '../Context';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
 
 const CourseDetail = () => {
 
@@ -11,12 +12,19 @@ const CourseDetail = () => {
     const [user, setUser] = useState('');
     const context = useContext(Context);
     const navigate = useNavigate();
+    const [errors, setErrors] = useState( [] );
+    const [firstName, setFirst] = useState('');
+    const [lastName, setLast] = useState('');
+    const markdown = `${courses.materialsNeeded}`
+ 
 
     useEffect(() => {
         axios.get(`http://localhost:5000/api/courses/${id}`)
             .then(res => {
                 setCourse(res.data);
                 setUser(res.data.userId);
+                setFirst(res.data.User.firstName)
+                setLast(res.data.User.lastName)
                 })
             .catch(err => console.log('Error fetching and parsing data', err))
         }, [id])
@@ -31,7 +39,10 @@ const CourseDetail = () => {
             }})
         .then(res => {
             if(res.status === 401){
-                navigate('/forbidden');
+                res.json()
+              .then(data => {
+                setErrors(data.errors)
+              })
             } else {
                 navigate('/');
             }
@@ -42,19 +53,18 @@ const CourseDetail = () => {
         });
     };
     
-// console.log(context.authenticatedUser && context.authenticatedUser.id === courses.userId );
-// comes up as true then returns to false
-    return(
+    return( 
         
         <main>
             <div className="actions--bar">
                 <div className="wrap">
                 { context.authenticatedUser && context.authenticatedUser.id === courses.userId 
                 ? (
-                        <div>
-                            <Link className="button" to={`/courses/${courses.id}/update`}>Update Course</Link>
+                        <>
+                            <Link className="button" to={`/courses/${id}/update`}>Update Course</Link>
+                            
                             <Link className="button" to="/" onClick={deleteCourse} >Delete Course</Link>
-                        </div>
+                        </>
                     ) 
                     : 
                     (null)
@@ -70,8 +80,8 @@ const CourseDetail = () => {
                         <div>
                             <h3 className="course--detail--title">Course</h3>
                             <h4 className="course--name">{courses.title}</h4>
-                            <p>By {user.firstName} {user.lastName}</p>
-
+                            <p>By {firstName} {lastName}</p>
+                    
                             <p>{courses.description}</p>
                             
                         </div>
@@ -81,7 +91,9 @@ const CourseDetail = () => {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                <ReactMarkdown>{courses.materialsNeeded}</ReactMarkdown>
+                                <li>
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={markdown} />
+                                </li>
                             </ul>
                         </div>
                     </div>

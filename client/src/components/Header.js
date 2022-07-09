@@ -23,8 +23,8 @@ const Header = () => {
                     (
                         <React.Fragment>
                             <ul className='header--signedout' >
-                                <li><Link  to='/signup/' > Sign Up</Link></li>
-                                <li><Link  to='/signin/' > Sign In</Link></li>
+                                <li><Link  to='/signup/'> Sign Up</Link></li>
+                                <li><Link  to='/signin/'> Sign In</Link></li>
                             </ul>
                         </React.Fragment>
                     )

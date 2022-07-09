@@ -43,7 +43,6 @@ export function Provider(props) {
           signOut: signOut,
           createCourse: createCourse,
           deleteCourse: deleteCourse
-  
       },
   }
 
@@ -100,8 +99,9 @@ export function Provider(props) {
     }
 }
 // const api = (path, method, body = null, requireAuth = false, credentials = null) 
-async function createCourse(title, description, estimatedTime, materialsNeeded, emailAddress, password) {
-  const res = await api('/courses/create', 'POST', title, description, estimatedTime, materialsNeeded, authenticatedUser.id, authenticatedUser.emailAddress, authenticatedPassword, true, {emailAddress, password} );
+async function createCourse(title, description, estimatedTime, materialsNeeded, emailAddress, password, authenticatedUser) {
+  const stuff = (title, description, estimatedTime, materialsNeeded, authenticatedUser.id, authenticatedUser.emailAddress, authenticatedPassword)
+  const res = await api('/courses/create', 'POST', stuff, true, {emailAddress, password} );
   console.log(authenticatedUser.id);
   if (res.status === 201) {
       return [];

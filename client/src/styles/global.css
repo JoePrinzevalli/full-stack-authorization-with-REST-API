@@ -29,7 +29,7 @@ a {
     padding: 0 1rem;
 }
 header {
-    background: #57496e;
+    background: rgb(49, 84, 31);
     color: #fff;
     padding: 1rem 0;
     margin-bottom: 2rem;
@@ -43,14 +43,16 @@ header {
     font-size: 1.25rem;
     color: #fff;
 }
+
 header li {
     font-size: .8rem;
 }
 header nav a {
-    color: #dbd;
+    color: white;
 }
-header nav a:hover {
-    color: #fff;
+header nav a:hover,
+.header--logo a:hover  {
+    color: darkgray;
 }
 
 .header--signedin li {
@@ -62,11 +64,15 @@ header nav a:hover {
     margin-left: .5rem;
 }
 .course--module {
-    background: #7c689b;
+    background: rgb(49, 84, 31);
     border-radius: .5rem;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     display: block;
+}
+.course--module:hover {
+    background-color: rgb(65, 110, 43);
+    border: 4px solid black;
 }
 .course--label {
     color: #fff;
@@ -85,6 +91,11 @@ header nav a:hover {
     font-weight: 300;
     font-size: 1.25rem;
 }
+
+.course--add--module:hover {
+background: #e5e3e8;
+}
+
 .course--add--title .add {
     width: 20px;
     height: auto;
@@ -101,10 +112,10 @@ header nav a:hover {
     letter-spacing: 2px;
 }
 .course--name {
-    font-size: 2rem;
+    font-size: 1.75rem;
     margin-bottom: .5rem;
     font-weight: 700;
-    color: #47395e;
+    color: black;
 }
 .course--detail--list {
     font-weight: 300;
@@ -167,7 +178,7 @@ textarea {
     min-height: 300px;
 }
 .button {
-    background: #7c689b;
+    background: rgb(42, 72, 27);
     color: #fff;
     font-size: 1rem;
     padding: .75rem 1.5rem;
@@ -184,13 +195,13 @@ textarea {
     margin-bottom: 0;
 }
 .button:not(.button-secondary):hover {
-    background: #63537d;
+    background-color: rgb(65, 110, 43);
     cursor: pointer;
 }
 .button-secondary {
-    color: #7c689b;
+    color: rgb(65, 110, 43);
     background: none;
-    box-shadow: 0 0 0 2px #7c689b inset;
+    box-shadow: 0 0 0 2px rgb(42, 72, 27) inset;
     transition: box-shadow 0.2s, color 0.2s;
 }
 .button-secondary:hover {

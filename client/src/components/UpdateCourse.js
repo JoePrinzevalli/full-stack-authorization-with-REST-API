@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Context } from '../Context';
 import { useNavigate, useParams  } from 'react-router-dom';
 import axios from 'axios';
@@ -6,21 +6,23 @@ import axios from 'axios';
 const UpdateCourse = () => {
 
     const navigate = useNavigate();
+    const context = useContext(Context);
     var {id} = useParams()
-    const [title, setTitle] = useState ('');
+    let [title, setTitle] = useState ('');
     const [description, setDescription] = useState ('');
     const [estimatedTime, setEstimatedTime] = useState ('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
-    // const [user, setUser] = useState('');
+    const [userId, setUserId] = useState(context.authenticatedUser.id);
     const [errors, setErrors] = useState( [] );
+
 
     
 
     const courseUpdate = async e => {
         e.preventDefault();
         setErrors([]);
-        const authCred = btoa(`${Context.authenticatedUser.emailAddress}:${Context.authenticatedPassword}`)
-        const res = await axios.get(`http://localhost:5000/api/courses/${id}`, {
+        const authCred = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
+        const res = await fetch(`http://localhost:5000/api/courses/${id}/update`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -30,12 +32,11 @@ const UpdateCourse = () => {
                 title,
                 description,
                 estimatedTime,
-                materialsNeeded}),
+                materialsNeeded,
+                userId}),
         })
         if (res.status === 204) {
             navigate('/');
-          } else if (res.status === 403) {
-            navigate('/forbidden');
           } else if (res.status === 400) {
             res.json()
               .then(data => {
@@ -43,12 +44,15 @@ const UpdateCourse = () => {
                 console.log(data);
               });
           } else {
+            console.log(res.status);
             throw new Error();
           }
+          //res,status returns 200 seems like wokring but not updating
     };
+    
 
     useEffect( () => {
-        fetch(`http://localhost:5000/api/courses/${id}`)             
+        axios.get(`http://localhost:5000/api/courses/${id}`)             
          .then(res => {
              setTitle(res.data.title);
              setDescription(res.data.description);
@@ -83,14 +87,14 @@ const UpdateCourse = () => {
                         <div>
                             <label htmlFor="courseTitle">Course Title</label>
                             <input 
+                            onChange={ e => setTitle(e.target.value)}
                             id="courseTitle" 
                             name="courseTitle" 
                             type="text"
-                            onChange={ e => setTitle(e.target.value)} 
                             value={title}
                             />
 
-                            <p>By {Context?.authenticatedUser ? `${Context.authenticatedUser.firstName} ${Context.authenticatedUser.lastName}` : ''}</p>
+                            <p>By {context?.authenticatedUser ? `${context.authenticatedUser.firstName} ${context.authenticatedUser.lastName}` : ''}</p>
 
                             <label htmlFor="courseDescription">Course Description</label>
                             <textarea 

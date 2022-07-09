@@ -82,7 +82,7 @@ router.post('/courses/create', authenticateUser, asyncHandler(async (req, res) =
 //Updarwe function not working --fix
 
 // route that will update the corresponding course and return a 204 HTTP status code and no content.
-  router.put('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
+  router.put('/courses/:id/update', authenticateUser, asyncHandler(async (req, res) => {
     try {
         let course = await Course.findOne({ where: { id: req.params.id } });
         const user = req.currentUser;
