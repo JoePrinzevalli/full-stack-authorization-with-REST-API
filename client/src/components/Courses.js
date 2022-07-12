@@ -6,6 +6,7 @@ const Courses = () => {
 
     const [courses, setCourses]= useState( [] );
 
+    //returns a list of available courses
     useEffect( () => {
         axios.get('http://localhost:5000/api/courses')
             .then(res => {setCourses(res.data); })

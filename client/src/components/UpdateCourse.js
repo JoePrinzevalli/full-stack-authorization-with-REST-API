@@ -17,7 +17,7 @@ const UpdateCourse = () => {
 
 
     
-
+//this fucntion updates a coruse 
     const courseUpdate = async e => {
         e.preventDefault();
         setErrors([]);

@@ -3,7 +3,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { Context } from '../Context';
 
 
-
+//only authenticated users can acccess certain pages with this fucntion
 const PrivateRoute = () => {
 
     let { authenticatedUser } = useContext(Context);

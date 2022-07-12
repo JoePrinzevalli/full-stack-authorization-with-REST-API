@@ -31,6 +31,7 @@ const CreateCourse = () => {
     //     })
     // }
 
+    //thiss fucntion creates courses
     const courseCreate = async e => {
         e.preventDefault();
         setErrors([]);
@@ -61,6 +62,7 @@ const CreateCourse = () => {
           }
     }
 
+    //this fucntion retursn user to home screen
         const handleCancel = (e) => {
             e.preventDefault();
             navigate('/');

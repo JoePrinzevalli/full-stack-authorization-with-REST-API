@@ -5,22 +5,22 @@ import withContext from './Context';
 
 import Courses from "./components/Courses";
 import Header from "./components/Header";
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
+import UserSignIn from './components/UserSignIn';
+import UserSignUp from './components/UserSignUp';
 import CreateCourse from './components/CreateCourse';
 import CourseDetail from './components/CourseDetail';
-import SignOut from './components/SignOut';
+import UserSignOut from './components/UserSignOut';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 import PrivateRoute from './components/PrivateRoute';
 
-const SignInWithContext = withContext(SignIn);
+const UserSignInWithContext = withContext(UserSignIn);
 const CreateCourseWithContext = withContext(CreateCourse);
-const SignUpWithContext = withContext(SignUp);
+const UserSignUpWithContext = withContext(UserSignUp);
 const CoursesWithContext = withContext(Courses)
 const CourseDetailWithContext = withContext(CourseDetail);
 const UpdateCourseWithContext = withContext(UpdateCourse)
-const SignOutWithContext = withContext(SignOut)
+const UserSignOutWithContext = withContext(UserSignOut)
 const PrivateRouteWithContext = withContext(PrivateRoute)
 
 function App() {
@@ -32,11 +32,11 @@ function App() {
           <Routes>
             <Route path='/' element={<CoursesWithContext /> }/>
             <Route path='/courses/:id' element={<CourseDetailWithContext /> }/>
-            <Route path='/signin' element={<SignInWithContext />} />
-            <Route path='/signup' element={<SignUpWithContext />} />
+            <Route path='/signin' element={<UserSignInWithContext />} />
+            <Route path='/signup' element={<UserSignUpWithContext />} />
             <Route path = '/courses/create' element={<PrivateRouteWithContext />}><Route path='' element={<CreateCourseWithContext />} /> </Route>
             <Route path = '/courses/:id/update' element={<PrivateRouteWithContext />}><Route path='' element={<UpdateCourseWithContext />} /> </Route>
-            <Route path='/signout' element={<SignOutWithContext />} />
+            <Route path='/signout' element={<UserSignOutWithContext />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
     </div>

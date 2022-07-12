@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Context } from '../Context';
 import { Link, useNavigate } from 'react-router-dom';
 
-const SignUp = () => {
+const UserSignUp = () => {
 
     const context = useContext(Context);
     const history = useNavigate();
@@ -13,7 +13,7 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState( [] );
 
-   
+   //this function handles a users signup ability
     const handleSubmit = (e) => {
         e.preventDefault();
         context.actions.createUser({firstName, lastName, emailAddress, password})
@@ -69,4 +69,4 @@ return(
 }
 
 
-export default SignUp;
+export default UserSignUp;

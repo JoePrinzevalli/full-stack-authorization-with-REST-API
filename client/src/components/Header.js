@@ -2,6 +2,7 @@ import React, {useContext} from "react";
 import { Link } from "react-router-dom";
 import { Context } from '../Context';
 
+//a static header for every page
 const Header = () => {
     const context = useContext(Context);
     return(

@@ -16,10 +16,14 @@ const CourseDetail = () => {
     const [errors, setErrors] = useState( [] );
     const [firstName, setFirst] = useState('');
     const [lastName, setLast] = useState('');
-    // const markdown = `${courses.materialsNeeded}`
+    // const markdown = `<li> HI </li><li> Bye </li>`
+  
+    // const markdown = `<li>${courses.materialsNeeded}</li>`
     const markdown = courses.materialsNeeded
+
  
 
+    //gets infromation to dsiplay speicifc course detialss
     useEffect(() => {
         axios.get(`http://localhost:5000/api/courses/${id}`)
             .then(res => {
@@ -31,6 +35,7 @@ const CourseDetail = () => {
             .catch(err => console.log('Error fetching and parsing data', err))
         }, [id])
 
+    //this fucnction deletes a course
     const deleteCourse = e => {
         e.preventDefault();
         const auth = btoa(`${context.authenticatedUser.emailAddress}:${context.authenticatedPassword}`)
@@ -93,7 +98,7 @@ const CourseDetail = () => {
 
                             <h3 className="course--detail--title">Materials Needed</h3>
                             <ul className="course--detail--list">
-                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={markdown} /> 
+                                <ReactMarkdown rehypePlugins={[rehypeRaw]} children={markdown} />
                             </ul>
                         </div>
                     </div>

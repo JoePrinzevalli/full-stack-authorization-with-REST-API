@@ -3,7 +3,7 @@ import { Context } from '../Context';
 import { Link, useNavigate } from 'react-router-dom';
 
 
-const SignIn = () => {
+const UserSignIn = () => {
 
     const handleCancel = (e) => {
         e.preventDefault();
@@ -16,6 +16,7 @@ const SignIn = () => {
     const [password, setPassword] = useState('');
     // const [errors, setErrors] = useState( [] );
 
+    //this fucntion helps a user sign in 
     const handleSubmit = e => {
         e.preventDefault();
         context.actions.signIn(emailAddress, password)
@@ -65,4 +66,4 @@ const SignIn = () => {
 }
 
 
-export default SignIn;
+export default UserSignIn;
