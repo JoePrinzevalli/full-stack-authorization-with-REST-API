@@ -20,6 +20,8 @@ const CourseDetail = () => {
   
     // const markdown = `<li>${courses.materialsNeeded}</li>`
     const markdown = courses.materialsNeeded
+    console.log(user);
+    console.log(errors);
 
  
 
@@ -89,7 +91,7 @@ const CourseDetail = () => {
                             <h4 className="course--name">{courses.title}</h4>
                             <p>By {firstName} {lastName}</p>
                     
-                            <p>{courses.description}</p>
+                            <ReactMarkdown>{courses.description}</ReactMarkdown>
                             
                         </div>
                         <div>

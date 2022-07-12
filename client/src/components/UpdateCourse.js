@@ -12,7 +12,7 @@ const UpdateCourse = () => {
     const [description, setDescription] = useState ('');
     const [estimatedTime, setEstimatedTime] = useState ('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
-    const [userId, setUserId] = useState(context.authenticatedUser.id);
+    const [userId] = useState(context.authenticatedUser.id);
     const [errors, setErrors] = useState( [] );
 
 
